@@ -1,0 +1,11 @@
+template<typename Key, typename Value>
+class HashTable {
+private:
+    std::vector<std::pair<Key, Value>> table;
+
+public:
+    HashTable(int size);
+    void insert(Key key, Value value);
+    Value get(Key key);
+    void remove(Key key);
+};
