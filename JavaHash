@@ -1,0 +1,5 @@
+HashMap<Integer, String> numbersAndNames = new HashMap<>();
+
+numbersAndNames.put(1234567, "Ян");
+
+System.out.println(numbersAndNames);
