@@ -1,0 +1,33 @@
+def fibonacci_search(arr, target):
+    def fib_gen(limit):
+        a, b = 0, 1
+        while a < limit:
+            yield a
+            a, b = b, a+b
+
+    # Генерируем ряд Фибоначчи, превышающий длину массива
+    fib_numbers = list(fib_gen(len(arr)+1))
+    k = len(fib_numbers)-1
+
+    offset = -1  # Отступ от начала массива
+    while k > 0:
+        idx = min(offset+fib_numbers[k-1], len(arr)-1)
+        if arr[idx] < target:
+            offset += fib_numbers[k-1]
+            k -= 2
+        elif arr[idx] > target:
+            k -= 1
+        else:
+            return idx
+    return -1  # Элемент не найден
+
+# Пример использования
+if __name__ == "__main__":
+    sorted_array = [10, 22, 35, 40, 45, 50, 80, 82, 85, 90, 100]
+    search_value = 85
+    result = fibonacci_search(sorted_array, search_value)
+    
+    if result != -1:
+        print(f"Значение найдено на индексе {result}")
+    else:
+        print("Значение не найдено")
