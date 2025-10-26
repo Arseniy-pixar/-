@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+// Поднимаем узел вверх, восстанавливая свойства кучи
+void heapify(int arr[], int n, int root) {
+    int largest = root;      // Корень дерева
+    int left = 2 * root + 1; // Левый дочерний элемент
+    int right = 2 * root + 2;// Правый дочерний элемент
+
+    // Проверяем, существует ли левый ребёнок и больше ли он корневого узла
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    // То же самое для правого ребёнка
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    // Если корень оказался не максимальным, меняем местами и восстанавливаем кучу
+    if (largest != root) {
+        swap(arr[root], arr[largest]);
+        heapify(arr, n, largest); // Рекурсивно восстанавливаем кучу снизу вверх
+    }
+}
+
+// Основная функция пирамидальной сортировки
+void heapSort(int arr[], int n) {
+    // Строим Max Heap из массива
+    for (int i = n / 2 - 1; i >= 0; --i)
+        heapify(arr, n, i);
+
+    // Один за другим извлекаем максимальный элемент из кучи
+    for (int i = n - 1; i > 0; --i) {
+        swap(arr[0], arr[i]); // Меняем максимум с последним элементом
+        heapify(arr, i, 0);   // Восстанавливаем кучу из оставшейся части
+    }
+}
+
+// Функция для вывода массива
+void printArray(const int arr[], int size) {
+    for (int i = 0; i < size; ++i)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Исходный массив:\n";
+    printArray(arr, n);
+
+    heapSort(arr, n);  // Сортируем массив
+
+    cout << "\nОтсортированный массив:\n";
+    printArray(arr, n);
+
+    return 0;
+}
