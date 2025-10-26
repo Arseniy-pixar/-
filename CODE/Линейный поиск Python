@@ -1,0 +1,23 @@
+def linear_search(arr, target):
+    """
+    Линейный поиск элемента в массиве.
+    
+    :param arr: Список элементов для поиска
+    :param target: Целевое значение для поиска
+    :return: Индекс целевого элемента или None, если элемент не найден
+    """
+    for index, value in enumerate(arr):
+        if value == target:
+            return index
+    return None
+
+# Пример использования
+if __name__ == "__main__":
+    my_list = [4, 2, 7, 1, 9, 3]
+    element_to_find = 7
+    result = linear_search(my_list, element_to_find)
+    
+    if result is not None:
+        print(f'Элемент {element_to_find} найден на индексе {result}')
+    else:
+        print(f'Элемент {element_to_find} не найден')
