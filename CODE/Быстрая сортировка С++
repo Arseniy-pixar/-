@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+// Процедура разделения массива
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];               // Выбор последнего элемента в качестве опорного
+    int i = low - 1;                     // Индекс для размещения меньших элементов
+
+    // Переставляем элементы согласно опоре
+    for (int j = low; j <= high - 1; ++j) {
+        if (arr[j] < pivot) {
+            ++i;
+            swap(arr[i], arr[j]);        // Меняем местами, если элемент меньше опоры
+        }
+    }
+    swap(arr[i + 1], arr[high]);        // Ставим опору на её место
+    return i + 1;                        // Возвращаем новую позицию опоры
+}
+
+// Основная функция быстрой сортировки
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);   // Получаем позицию опоры
+
+        // Рекурсивно применяем быструю сортировку к двум частям
+        quickSort(arr, low, pi - 1);          // Левая часть
+        quickSort(arr, pi + 1, high);         // Правая часть
+    }
+}
+
+// Вспомогательная функция для вывода массива
+void printArray(const int arr[], int size) {
+    for (int i = 0; i < size; ++i)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int arr[] = {10, 7, 8, 9, 1, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Исходный массив:\n";
+    printArray(arr, n);
+
+    quickSort(arr, 0, n - 1);                // Сортируем массив
+
+    cout << "\nОтсортированный массив:\n";
+    printArray(arr, n);
+
+    return 0;
+}
