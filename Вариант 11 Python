@@ -1,0 +1,15 @@
+def generate_permutations(s):
+    def permute(data, i, length): # Вспомогательная рекурсивная функция
+        if i==length:
+            print(''.join(data))
+        else:
+            for j in range(i,length):
+                data[i], data[j] = data[j], data[i]
+                permute(data, i+1, length)
+                data[i], data[j] = data[j], data[i] # Откат изменения для следующей итерации
+    
+    n = len(s)
+    permute(list(s), 0, n)
+
+# Пример использования
+generate_permutations("ABC")
